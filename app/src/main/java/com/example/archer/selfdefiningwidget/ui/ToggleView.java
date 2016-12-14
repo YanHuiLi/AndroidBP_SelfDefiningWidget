@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -45,6 +46,7 @@ public class ToggleView  extends View{
     private Paint paint;
 
     private boolean mSwitchStatus=false;
+    private float currentX;
 
     /**
      *用于代码创建控件
@@ -144,20 +146,72 @@ public class ToggleView  extends View{
         //1.绘制背景
         canvas.drawBitmap(switchBackground,0,0,paint);
 
+//根据用户触摸到的位置绘制滑块
 
-        if (mSwitchStatus){
-            //2.绘制slideButton
-            int newLeft = switchBackground.getWidth() - slideButton.getWidth();
+        if (isTouchMode){
 
-            canvas.drawBitmap(slideButton,newLeft,0,paint);
+            float newLeft = this.currentX-slideButton.getWidth()/2.0f;//滑块的位置向左移动半个滑块的位置，用户体验更好。
+            canvas.drawBitmap(slideButton,newLeft,0,paint);//绘制滑块
 
         }else {
-            canvas.drawBitmap(slideButton,0,0,paint);
 
+            //根据开关状态绘制view
+            if (mSwitchStatus){
+                //2.绘制slideButton
+                int newLeft = switchBackground.getWidth() - slideButton.getWidth();
+
+                canvas.drawBitmap(slideButton,newLeft,0,paint);
+
+            }else {
+                canvas.drawBitmap(slideButton,0,0,paint);
+            }
 
         }
 
 
+    }
 
+    /**
+     * 触摸事件处理
+     * @param event  事件
+     * @return  消费事件
+     */
+
+    boolean isTouchMode=false;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        switch (event.getAction()){
+
+            case MotionEvent.ACTION_DOWN:
+
+                isTouchMode=true;
+                currentX = event.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                currentX = event.getX();
+
+                break;
+
+
+            case MotionEvent.ACTION_UP:
+
+               isTouchMode=false;
+                currentX = event.getX();
+
+                break;
+
+            default:
+
+                break;
+        }
+
+
+        //重绘界面
+
+        invalidate();//会引发onDraw方法被调用，变量重新生效，界面重绘
+
+        return true;
     }
 }
