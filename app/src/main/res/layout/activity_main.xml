@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:archer="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +13,9 @@
     <!--当继承View得到的组件默认的宽高是填充整个页面-->
     <com.example.archer.selfdefiningwidget.ui.ToggleView
         android:id="@+id/ToggleView"
+        archer:Switch_Background="@drawable/switch_background"
+        archer:Slide_Button="@drawable/slide_button"
+        archer:switch_status="false"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"

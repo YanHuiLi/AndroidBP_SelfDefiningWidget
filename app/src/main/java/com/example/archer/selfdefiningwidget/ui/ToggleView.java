@@ -69,6 +69,16 @@ public class ToggleView  extends View{
         super(context, attrs);
         initPaint();
 
+
+        String namespace="http://schemas.android.com/apk/res-auto";
+        int switch_background = attrs.getAttributeResourceValue(namespace, "Switch_Background", -1);
+        int Slide_Button = attrs.getAttributeResourceValue(namespace, "Slide_Button", -1);
+        boolean switch_status = attrs.getAttributeBooleanValue(namespace, "switch_status", false);
+
+        setSwitchBackgroundResource(switch_background);
+        setSlideButtonResource(Slide_Button);
+        setSwitchStatus(switch_status);
+
     }
 
     /**

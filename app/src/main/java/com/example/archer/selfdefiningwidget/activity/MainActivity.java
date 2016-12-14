@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
         //1.拿到自定义好的toggleView实例
         toggleView = (ToggleView) findViewById(R.id.ToggleView);
         //2.创建需要的方法
-        toggleView.setSwitchBackgroundResource(R.drawable.switch_background);
-
-        toggleView.setSlideButtonResource(R.drawable.slide_button);
-
-
-
-        toggleView.setSwitchStatus(false);//设置开关的默认值。
+//        toggleView.setSwitchBackgroundResource(R.drawable.switch_background);
+//
+//        toggleView.setSlideButtonResource(R.drawable.slide_button);
+//
+//
+//
+//        toggleView.setSwitchStatus(false);//设置开关的默认值。
 
 
         //设置开关监听器
