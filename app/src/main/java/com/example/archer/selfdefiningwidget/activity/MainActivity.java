@@ -2,6 +2,7 @@ package com.example.archer.selfdefiningwidget.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.archer.selfdefiningwidget.R;
 import com.example.archer.selfdefiningwidget.ui.ToggleView;
@@ -26,5 +27,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         toggleView.setSwitchStatus(false);//设置开关的默认值。
+
+
+        //设置开关监听器
+        toggleView.setOnSwitchStateUpdateListener(new ToggleView.OnSwitchStateUpdateListener() {
+            @Override
+            public void onStateUpdate(boolean state) {
+
+                Toast.makeText(getApplicationContext(),"state:"+state,Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

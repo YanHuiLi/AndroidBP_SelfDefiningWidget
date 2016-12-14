@@ -47,6 +47,7 @@ public class ToggleView  extends View{
 
     private boolean mSwitchStatus=true;
     private float currentX;
+    private OnSwitchStateUpdateListener onSwitchStateUpdateListener;
 
     /**
      *用于代码创建控件
@@ -155,16 +156,13 @@ public class ToggleView  extends View{
             float newLeft = this.currentX-slideButton.getWidth()/2.0f;//滑块的位置向左移动半个滑块的位置，用户体验更好。
 
             int MaxRight = switchBackground.getWidth() - slideButton.getWidth();
-            //限定滑块范围
 
+            //限定滑块范围
             if (newLeft<0){//设置往左滑动的最大范围
                 newLeft=0;
             }else if (newLeft>MaxRight){
                 newLeft=MaxRight;//右边的最大范围
             }
-
-
-
 
             canvas.drawBitmap(slideButton,newLeft,0,paint);//绘制滑块
 
@@ -220,6 +218,15 @@ public class ToggleView  extends View{
                 boolean stats;
                 stats = currentX > center;
 
+                //如果开关变化了，通知界面。
+
+                if (onSwitchStateUpdateListener!=null&& stats!= mSwitchStatus){
+
+                   //把最新的states传递出去
+                    onSwitchStateUpdateListener.onStateUpdate(stats);
+                }
+
+
                  mSwitchStatus=stats;
 
                 break;
@@ -236,4 +243,25 @@ public class ToggleView  extends View{
 
         return true;
     }
+
+
+
+
+    //设置setOnSwitchStateUpdateListener 方法
+    public void setOnSwitchStateUpdateListener(OnSwitchStateUpdateListener onSwitchStateUpdateListener) {
+
+
+        this.onSwitchStateUpdateListener=onSwitchStateUpdateListener;
+
+    }
+
+
+    public interface OnSwitchStateUpdateListener{
+
+        //状态回调
+        void onStateUpdate(boolean state);
+
+
+    }
+
 }
