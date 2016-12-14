@@ -25,6 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        toggleView.setSwitchStatus(true);//设置开关的默认值。
+        toggleView.setSwitchStatus(false);//设置开关的默认值。
     }
 }

@@ -45,7 +45,7 @@ public class ToggleView  extends View{
     private Bitmap slideButton;
     private Paint paint;
 
-    private boolean mSwitchStatus=false;
+    private boolean mSwitchStatus=true;
     private float currentX;
 
     /**
@@ -150,7 +150,22 @@ public class ToggleView  extends View{
 
         if (isTouchMode){
 
+
+
             float newLeft = this.currentX-slideButton.getWidth()/2.0f;//滑块的位置向左移动半个滑块的位置，用户体验更好。
+
+            int MaxRight = switchBackground.getWidth() - slideButton.getWidth();
+            //限定滑块范围
+
+            if (newLeft<0){//设置往左滑动的最大范围
+                newLeft=0;
+            }else if (newLeft>MaxRight){
+                newLeft=MaxRight;//右边的最大范围
+            }
+
+
+
+
             canvas.drawBitmap(slideButton,newLeft,0,paint);//绘制滑块
 
         }else {
@@ -197,8 +212,15 @@ public class ToggleView  extends View{
 
             case MotionEvent.ACTION_UP:
 
-               isTouchMode=false;
+              isTouchMode=false;
                 currentX = event.getX();
+
+                float center = switchBackground.getWidth() / 2.0f;
+
+                boolean stats;
+                stats = currentX > center;
+
+                 mSwitchStatus=stats;
 
                 break;
 
